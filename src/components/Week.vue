@@ -3,17 +3,9 @@
     <h2>Repas</h2>
 
     <div v-for="(day, i) in days" :key="'day' + i">
-      <p>{{ day.text }}</p>
-      <div>
-        <p><strong>Midi</strong></p>
-        <ul><li v-for="(plat, i) in day.dejeune" :key="'plat' + i">{{plat}}</li></ul>
-        <button @click="addRecette">Ajouter Plat</button>
-      </div>
-      <div class="">
-        <p><strong>Soir</strong></p>
-        <ul><li v-for="(plat, i) in day.diner" :key="'plat' + i">{{plat}}</li></ul>
-        <button>Ajouter Plat</button>
-      </div>
+      <p>{{ day._text }}</p>
+      <Repas :jour="day" nom="Déjeuné" type="_dejeune"/>
+      <Repas :jour="day" nom="Diner" type="_diner"/>
     </div>
 
   </div>
@@ -21,47 +13,97 @@
 
 <script>
 import * as dayjs from 'dayjs'
+import Repas from '@/components/Repas.vue'
 
 require('dayjs/locale/fr')
 
 const dayInWeek = 7
 
+class Day {
+  _dejeune = []
+  _diner = []
+
+  constructor (text, date) {
+    this._text = text
+    this._date = date
+  }
+
+  get dejeune () {
+    return this._dejeune
+  }
+
+  set dejeune (value) {
+    this._dejeune = value
+  }
+
+  get diner () {
+    return this._diner
+  }
+
+  set diner (value) {
+    this._diner = value
+  }
+
+  get text () {
+    return this._text
+  }
+
+  set text (value) {
+    this._text = value
+  }
+
+  get date () {
+    return this._date
+  }
+
+  set date (value) {
+    this._date = value
+  }
+}
+
 export default {
   name: 'Week',
+  components: { Repas },
   data () {
     return {
-      days: [{
-        text: '',
-        daysjs: null,
-        dejeune: [],
-        diner: []
-      }]
+
+    }
+  },
+  props: {
+    nbWeekFromNow: {
+      type: Number,
+      default: 0
     }
   },
   mounted () {
-    this.getWeek()
+
   },
-  methods: {
-    getWeek (numberFromNow) {
+  computed: {
+    days () {
       // get start day (monday from now)
       let today = dayjs().locale('fr').day(1)
-      console.log('today', today)
-      if (numberFromNow && numberFromNow > 0) {
-        today = today.add(numberFromNow, 'week')
+      // console.log('today', today)
+      if (this.nbWeekFromNow && this.nbWeekFromNow > 0) {
+        today = today.add(this.nbWeekFromNow, 'week')
       }
-      console.log('with if', today)
+      // console.log('with if', today)
       // get days of this week
+      const arrayWeek = []
       for (let i = 0; i < dayInWeek; i++) {
-        this.days.push({ text: today.add(i, 'day').format('dddd DD MMM YYYY') })
+        const _dayJS = today.add(i, 'day')
+        const text = _dayJS.format('dddd DD MMM YYYY')
+        const date = _dayJS.format('YYYY-MM-DD')
+        if (this.$store.state.repas[date]) {
+          // si il est déjà dans la bdd on le récupère
+          arrayWeek.push(this.$store.state.repas[date])
+        } else {
+          // sinon on en crée un nouveau
+          arrayWeek.push(new Day(text, date))
+        }
       }
-    },
-    addRecette () {
-      this.$router.push('Recettes')
+      console.log('arrayweek', arrayWeek)
+      return arrayWeek
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

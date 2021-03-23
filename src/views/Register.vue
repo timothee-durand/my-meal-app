@@ -46,6 +46,9 @@ export default {
           if (!data.user.emailVerified) {
             console.log('MAIL PAS VERIFIE')
             firebase.auth().currentUser.sendEmailVerification()
+          } else {
+            this.$store.commit('authenticateUser', data)
+            this.enterApplication()
           }
         })
         .catch(err => {
@@ -61,6 +64,7 @@ export default {
             console.log('MAIL PAS VERIFIE')
             firebase.auth().currentUser.sendEmailVerification()
           } else {
+            this.$store.commit('authenticateUser', data)
             this.enterApplication()
           }
         })
@@ -73,6 +77,7 @@ export default {
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then((result) => {
           console.log(result)
+          this.$store.commit('authenticateUser', result)
           this.enterApplication()
         }).catch((error) => {
           console.error('ERROR', error)

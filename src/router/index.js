@@ -1,23 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login'
 import Register from '../views/Register'
 import Dashboard from '../views/Dashboard'
-import Recettes from '@/views/Recettes.vue'
+import ChoixPlat from '@/views/ChoixPlat.vue'
+import ListeCourse from '@/views/ListeCoursePage.vue'
+import MesRecettes from '@/views/MesRecettes.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Register
   },
   {
     path: '/register',
@@ -25,14 +20,29 @@ const routes = [
     component: Register
   },
   {
-    path: '/dashboard',
+    path: '/',
     name: 'Dashboard',
     component: Dashboard
   },
   {
     path: '/recettes',
     name: 'Recettes',
-    component: Recettes
+    component: ChoixPlat
+  },
+  {
+    path: '/liste-course',
+    name: 'ListeCourse',
+    component: ListeCourse
+  },
+  {
+    path: '/mes-recettes',
+    name: 'MesRecettes',
+    component: MesRecettes
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: Dashboard
   }
 ]
 
@@ -40,6 +50,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(router.app.$store.state.isConnected)
+  if (!router.app.$store.state.isConnected && to.name !== 'login') {
+    router.push('login')
+    return
+  }
+  next()
 })
 
 export default router
