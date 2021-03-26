@@ -1,14 +1,18 @@
 <template>
   <div id="app" class="p-4">
-    <button type="button" @click="disconnect">Se déconnecter</button>
+<!--    <button type="button" @click="disconnect">Se déconnecter</button>-->
+    <MenuBurger/>
     <router-view/>
     <v-dialog />
   </div>
 </template>
 <script>
 
+import MenuBurger from './MenuBurger.vue'
+
 export default {
   name: 'App',
+  components: { MenuBurger },
   mounted () {
     this.$store.dispatch('bindRecettes')
     this.$store.dispatch('bindRepas')
@@ -22,5 +26,4 @@ export default {
   }
 }
 </script>
-<style>
-</style>
+<style src="@/css/main.css"></style>

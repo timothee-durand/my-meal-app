@@ -1,7 +1,5 @@
 <template>
   <div>
-    <router-link to="liste-course">Liste Course</router-link>
-    <router-link to="mes-recettes">Mes Recettes</router-link>
     <div>
       <button @click="nbWeekFromNow--">Précédente</button>
       <button @click="nbWeekFromNow++">Suivante</button>

@@ -102,6 +102,7 @@ export default {
     },
     saveListeCourse () {
       this.$store.dispatch('addListeCourse', this.listeCourse)
+      this.listeCourse = {}
     },
     updateListeCourse (payload) {
       this.$store.dispatch('updateListeCourse', payload)
@@ -133,5 +134,7 @@ export default {
 </script>
 
 <style scoped>
-
+h3 {
+  margin-top: 0;
+}
 </style>

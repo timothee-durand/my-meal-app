@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
+
+:root, html, body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+*::before, *::after {
+    box-sizing: border-box;
+}
+
+/* VARIABLES */
+:root {
+    --body-font:'Poppins', sans-serif;
+    --title-font:'Libre Baskerville', serif;
+
+    --yellow: #FFDA15;
+    --yellow-alpha: rgba(255,218,21,0.7);
+    --red: #F35649;
+    --red-alpha: rgba(243, 86, 73, 0.5);
+    --light-grey:#F8F8F8;
+    --white:#ffffff;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+#app {
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: 1rem;
+    margin: auto;
+}
+
+body {
+    font-family: var(--body-font);
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.4rem;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--title-font);
+    font-weight: 700;
+    font-style: normal;
+}
+
+button {
+    background-color: transparent;
+    outline: none;
+    padding: 1rem 2rem;
+    border-radius: 5rem;
+    appearance: none;
+    font-weight: 500;
+    font-size:1.8rem;
+    cursor: pointer;
+}
+
+button i {
+    margin-right: 10px;
+}
+
+button.carre {
+    border-radius: 7px;
+}
+
+button.plain {
+    border: var(--light-grey) 2px solid;
+    color: var(--red);
+    background-color: var(--white);
+}
+
+button.plain.red-alpha, button.plain.red {
+    color: var(--white);
+}
+
+.red-alpha {
+    background-color: var(--red-alpha);
+}
+
+.red {
+    background-color: var(--red);
+
+}
+
+.yellow-alpha {
+    background-color: var(--yellow-alpha);
+}
+
+.yellow {
+    background-color: var(--yellow);
+
+}
+
+.text-red-alpha {
+    color: var(--red-alpha);
+}
+
+.text-red {
+    color: var(--red);
+}
+
+.text-yellow-alpha {
+    color: var(--yellow-alpha);
+}
+
+.text-yellow {
+    color: var(--yellow);
+}
+
+.bg-card {
+    background: var(--white);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 1rem;
+}
+
+.tb-card {
+    border-radius: 1rem 0 0 1rem;
+}
+
+a {
+    cursor: pointer;
+}
+
+.cool-link {
+    position: relative;
+    transition: -webkit-clip-path 275ms ease;
+    transition: clip-path 275ms ease;
+    transition: clip-path 275ms ease, -webkit-clip-path 275ms ease;
+}
+
+.cool-link span {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 1rem;
+}
+
+.cool-link span::before {
+    position: absolute;
+    content: attr(data-content);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1px;
+    -webkit-clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
+    clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
+    transition: -webkit-clip-path 275ms ease;
+    transition: clip-path 275ms ease;
+    transition: clip-path 275ms ease, -webkit-clip-path 275ms ease;
+}
+
+.cool-link .wave-red {
+    -webkit-text-decoration-color: var(--red);
+    text-decoration-color: var(--red);
+}
+
+.cool-link .wave-yellow {
+    -webkit-text-decoration-color: var(--yellow);
+    text-decoration-color: var(--yellow);
+}
+
+.cool-link:hover span::before, .cool-link:focus span::before {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.cool-link::before {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 3px;
+    text-decoration-color: var(--yellow);
+}
+
+a:visited, a:hover {
+    color: var(--red);
+}

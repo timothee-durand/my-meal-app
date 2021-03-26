@@ -1,25 +1,37 @@
 <template>
-  <div>
-    <form @submit.prevent="register">
-      <label> Mail :
-        <input type="email" v-model="form.email">
-      </label>
-      <label> Mot de passe
-        <input type="password" v-model="form.password">
-      </label>
-      <button type="submit">S'inscrire</button>
-    </form>
-    <form @submit.prevent="login">
-      <label> Mail :
-        <input type="email" v-model="form.email">
-      </label>
-      <label> Mot de passe
-        <input type="password" v-model="form.password">
-      </label>
-      <button type="submit">Se connecter</button>
-    </form>
-    <h2>ou par google</h2>
-    <button type="button" @click="signInWithGoogle">S'identifier avec google</button>
+  <div id="register-page">
+    <div class="container">
+      <h2 class="hero-title">Plannifiez vos <br> repas !</h2>
+      <img src="@/assets/hero_illustration.png" alt="Illustration" class="bg-blob">
+      <button type="button" class="red plain icon" @click="signInWithGoogle"><i class="fab fa-google"></i> S'identifier
+        avec google
+      </button>
+      <p>ou</p>
+      <button type="button" class="plain icon" @click="signInMail = true"><i class="fas fa-envelope"></i> S'identifier avec son
+        mail
+      </button>
+      <div class="sign-email-container" v-if="signInMail">
+        <form @submit.prevent="login" v-if="!signUpMail">
+          <label> Mail :
+            <input type="email" v-model="form.email">
+          </label>
+          <label> Mot de passe
+            <input type="password" v-model="form.password">
+          </label>
+          <button type="submit" class="plain red-alpha">Se connecter</button>
+        </form>
+        <p v-if="!signUpMail">Pas encore inscrit ? <a href="#" @click="signUpMail = true">S'inscrire</a>.</p>
+        <form @submit.prevent="register" v-if="signUpMail">
+          <label> Mail :
+            <input type="email" v-model="form.email">
+          </label>
+          <label> Mot de passe
+            <input type="password" v-model="form.password">
+          </label>
+          <button type="submit" class="plain red-alpha" >S'inscrire</button>
+        </form>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -34,7 +46,9 @@ export default {
       form: {
         password: '',
         email: ''
-      }
+      },
+      signInMail: false,
+      signUpMail: false
     }
   },
   methods: {
@@ -89,3 +103,59 @@ export default {
   }
 }
 </script>
+<style>
+#register-page {
+  background-color: var(--yellow);
+  color: var(--red);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#register-page  .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bg-blob {
+  background-image: url("../assets/blob_hero.svg");
+  background-size: cover;
+  padding: 20px;
+  margin: 2rem 0;
+}
+
+.sign-email-container {
+  width: 70%;
+}
+
+.sign-email-container input {
+  padding: 1rem 2rem;
+  border: var(--red-alpha) solid 1px;
+}
+
+.sign-email-container > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-email-container > form label {
+  display: flex;
+flex-direction: column;
+  margin: 1rem 0;
+}
+
+.sign-email-container button {
+  width: 70%;
+  margin: 1rem auto 0 auto;
+}
+
+.hero-title {
+  font-size: 5rem;
+  line-height: 6.2rem;
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+</style>
