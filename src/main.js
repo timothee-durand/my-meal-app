@@ -13,6 +13,10 @@ Vue.use(VModal, { dialog: true })
 
 Vue.config.productionTip = false
 
+Vue.filter('recetteName', function (value) {
+  return store.state.recettes[value].titre
+})
+
 new Vue({
   router,
   store,

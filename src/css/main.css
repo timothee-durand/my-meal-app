@@ -33,8 +33,11 @@ html {
 #app {
     min-width: 100vw;
     min-height: 100vh;
-    padding: 1rem;
     margin: auto;
+}
+
+.page {
+    padding: 1rem;
 }
 
 body {
@@ -62,6 +65,10 @@ button {
     cursor: pointer;
 }
 
+button[disabled] {
+    opacity: 0.5;
+}
+
 button i {
     margin-right: 10px;
 }
@@ -73,7 +80,6 @@ button.carre {
 button.plain {
     border: var(--light-grey) 2px solid;
     color: var(--red);
-    background-color: var(--white);
 }
 
 button.plain.red-alpha, button.plain.red {
@@ -82,6 +88,10 @@ button.plain.red-alpha, button.plain.red {
 
 .red-alpha {
     background-color: var(--red-alpha);
+}
+
+.white {
+    background-color: var(--white);
 }
 
 .red {
@@ -106,12 +116,29 @@ button.plain.red-alpha, button.plain.red {
     color: var(--red);
 }
 
+.text-white {
+    color: var(--white);
+}
+
 .text-yellow-alpha {
     color: var(--yellow-alpha);
 }
 
 .text-yellow {
     color: var(--yellow);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.hover-scale-up:hover {
+    transform: scale(1.2);
+}
+
+.hover-scale-up {
+    transition: transform ease 300ms;
+    will-change: transform;
 }
 
 .bg-card {
@@ -122,6 +149,11 @@ button.plain.red-alpha, button.plain.red {
 
 .tb-card {
     border-radius: 1rem 0 0 1rem;
+}
+
+.header-card {
+    display: flex;
+    justify-content: space-between;
 }
 
 a {
@@ -187,3 +219,4 @@ a {
 a:visited, a:hover {
     color: var(--red);
 }
+

@@ -7,7 +7,7 @@
         avec google
       </button>
       <p>ou</p>
-      <button type="button" class="plain icon" @click="signInMail = true"><i class="fas fa-envelope"></i> S'identifier avec son
+      <button type="button" class="plain white icon" @click="signInMail = true"><i class="fas fa-envelope"></i> S'identifier avec son
         mail
       </button>
       <div class="sign-email-container" v-if="signInMail">

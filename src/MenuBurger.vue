@@ -1,5 +1,9 @@
 <template>
   <header>
+    <svg class="icon-app" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.06 21.99H18.72C19.56 21.99 20.25 21.35 20.35 20.53L22 4.05H17V0H15.03V4.05H10.06L10.36 6.39C12.07 6.86 13.67 7.71 14.63 8.65C16.07 10.07 17.06 11.54 17.06 13.94V21.99ZM0 20.99V20H15.03V20.99C15.03 21.54 14.58 21.99 14.02 21.99H1.01C0.45 21.99 0 21.54 0 20.99ZM15.03 13.99C15.03 5.99 0 5.99 0 13.99H15.03ZM0.02 16H15.02V18H0.02V16Z" fill="#F35649"/>
+    </svg>
+    <h1 class="text-yellow">My Meal</h1>
     <div class="burger-menu burger-menu--closed" @click="open = !open" :class="{'burger-menu--opened':open}">
       <div class="bar "></div>
       <div class="bar "></div>
@@ -30,6 +34,19 @@ export default {
 <style scoped>
 header {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 40% 2rem 2rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.icon-app {
+  width: 2.2rem;
+  height: 2.2rem;
 }
 
 body .burger-menu {
@@ -68,7 +85,7 @@ body .burger-menu--closed .bar:nth-of-type(2) {
 body .burger-menu--closed .bar:nth-of-type(3) {
   width: 50%;
 }
-body .burger-menu--closed:hover .bar:nth-of-type(2) {
+body .burger-menu--closed:hover .bar:nth-of-type(2), body .burger-menu--opened .bar:nth-of-type(3) {
   width: 100%;
 }
 body .burger-menu--closed:hover .bar:nth-of-type(3) {
@@ -100,6 +117,7 @@ body .burger-menu--opened .bar:nth-of-type(3) {
   left: 0;
   top: 0;
   min-height: 100vh;
+  z-index: 90;
 }
 
 .menu-overlay > div {

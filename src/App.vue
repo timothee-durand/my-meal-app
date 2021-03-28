@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="p-4">
+  <div id="app" >
 <!--    <button type="button" @click="disconnect">Se déconnecter</button>-->
     <MenuBurger/>
-    <router-view/>
+    <router-view class="page"/>
     <v-dialog />
   </div>
 </template>

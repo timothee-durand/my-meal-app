@@ -1,7 +1,11 @@
 <template>
   <div>
     <h3>Mes Recettes</h3>
-    <Recette v-for="rec in recettes" :recette="rec" full :key="'rec' + rec.slug"></Recette>
+    <Recette v-for="rec in recettes" :recette="rec"  :key="'rec' + rec.slug">
+      <template v-slot:button>
+        <button type="button" class="delete-button-recette" > <span class="text-red-alpha hover-scale-up cursor-pointer"><i class="fas fa-minus-circle"></i></span></button>
+      </template>
+    </Recette>
   </div>
 </template>
 
@@ -18,6 +22,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+  .delete-button-recette {
+    border: none;
+    text-align: right;
+  }
 </style>

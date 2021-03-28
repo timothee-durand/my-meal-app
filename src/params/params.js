@@ -10,5 +10,6 @@ export default {
     repas: 'repas',
     recette: 'recettes',
     listeCourse: 'listes-courses'
-  }
+  },
+  maxPlatRepas: 3
 }

@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <h2>Repas</h2>
+  <div class="week">
+    <div v-for="(day, i) in days" :key="'day' + i" class="bg-card day">
+      <p class="day-name">{{ day._text }}</p>
+      <div class="day-repas">
+        <Repas :jour="day" nom="Déjeuné" type="_dejeune" couleur="red-alpha"/>
+        <Repas :jour="day" nom="Diner" type="_diner" couleur="yellow-alpha"/>
+      </div>
 
-    <div v-for="(day, i) in days" :key="'day' + i">
-      <p>{{ day._text }}</p>
-      <Repas :jour="day" nom="Déjeuné" type="_dejeune"/>
-      <Repas :jour="day" nom="Diner" type="_diner"/>
     </div>
 
   </div>
@@ -107,3 +108,26 @@ export default {
   }
 }
 </script>
+<style>
+.day {
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.week {
+  width: 70%;
+}
+
+.day-name {
+  font-weight: 500;
+  text-align: center;
+}
+
+.day-repas {
+  display: flex;
+}
+
+.day-repas > * {
+  flex: 1;
+}
+</style>
