@@ -38,13 +38,13 @@ export default {
 <style scoped>
 .recette-not-full {
   display: flex;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;
   max-width: 600px;
-  margin: auto;
 }
 
 .recette-not-full .tb-recette {
-  width: 30vw;
+  min-width: 100px;
+  width: 30%;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;

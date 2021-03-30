@@ -1,25 +1,21 @@
 <template>
   <div>
-    <h3>Liste de course</h3>
-    <form @submit.prevent="getListeCourse">
-      <label>
-        Date de début :
-        <input type="date" v-model="form.dateDebut">
-      </label>
-      <label>
-        Date de fin
-        <input type="date" v-model="form.dateFin">
-      </label>
-      <button type="submit">Avoir liste course</button>
-    </form>
-    <button type="button" @click="saveListeCourse">Enregistrer la liste de course</button>
-    <ListeCourse :liste-course="listeCourse" @updateOnList="updateListeCourse"/>
+    <modal name="generer-liste-course" adaptive width="90%" classes="modal-my-meal" height="auto">
+      <h3>Générer une liste de course</h3>
+      <form @submit.prevent="getListeCourse">
+        <label for="date_debut">Date de début</label>
+        <input type="date" v-model="form.dateDebut" id="date_debut">
+        <label for="date_fin">Date de fin</label>
+        <input type="date" v-model="form.dateFin" id="date_fin">
+        <button type="submit" class="red text-white">Avoir liste course</button>
+      </form>
+    </modal>
+
+    <button type="button" @click="openModalAddLC" class="button-fixed"><i class="fas fa-plus-circle fa-2x text-yellow"></i></button>
+    <ListeCourse :liste-course="listeCourse" @updateOnList="updateListeCourse" :delete-button="false" v-if="isListeCourse"/>
     <h3>Mes listes de courses</h3>
     <ListeCourse v-for="(listeCourse, i) in listeCourses" :key="'lc' + i" :liste-course="listeCourse"
                  @updateOnList="updateListeCourse" @deleteLC="deleteListeCourse"/>
-    <modal name="my-first-modal">
-      This is my first modal
-    </modal>
   </div>
 </template>
 
@@ -52,7 +48,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['listeCourses'])
+    ...mapState(['listeCourses']),
+    isListeCourse () {
+      return this.listeCourse.ingredients !== undefined
+    }
   },
   methods: {
     getListeCourse () {
@@ -71,7 +70,8 @@ export default {
       repasConcernes.forEach((repas) => {
         console.log(repas)
         if (repas._dejeune) {
-          repas._dejeune.forEach(slug => {
+          Object.keys(repas._dejeune).forEach(key => {
+            const slug = repas._dejeune[key]
             const recette = this.$store.state.recettes[slug]
             console.log(recette)
             if (recette) {
@@ -97,11 +97,11 @@ export default {
           valide: false
         })
       })
-      this.listeCourse = new ListeCourseType(listeIngredientObjet)
-      console.log(this.listeCourse)
+      this.saveListeCourse(new ListeCourseType(listeIngredientObjet))
+      this.$modal.hide('generer-liste-course')
     },
-    saveListeCourse () {
-      this.$store.dispatch('addListeCourse', this.listeCourse)
+    saveListeCourse (listeCourse) {
+      this.$store.dispatch('addListeCourse', listeCourse)
       this.listeCourse = {}
     },
     updateListeCourse (payload) {
@@ -127,8 +127,10 @@ export default {
           }
         ]
       })
+    },
+    openModalAddLC () {
+      this.$modal.show('generer-liste-course')
     }
-
   }
 }
 </script>
@@ -136,5 +138,31 @@ export default {
 <style scoped>
 h3 {
   margin-top: 0;
+  text-align: center;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+}
+
+input, input:focus, input:focus-visible {
+  font-family: var(--body-font);
+  background-color: var(--red-alpha);
+  border: none;
+  padding: 1rem 0.5rem;
+  border-radius: 10px;
+}
+
+input:placeholder {
+  opacity: 0.5;
+}
+
+button {
+  border: none;
+  margin-top: 1rem;
+}
+
 </style>

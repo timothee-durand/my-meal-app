@@ -220,3 +220,23 @@ a:visited, a:hover {
     color: var(--red);
 }
 
+.button-fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+}
+
+.border-none {
+    border: none;
+}
+
+.modal-my-meal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem 0.5rem;
+    border-radius: 1rem;
+}
+

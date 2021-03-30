@@ -115,7 +115,7 @@ export default {
 }
 
 .week {
-  width: 70%;
+  width: 98%;
 }
 
 .day-name {
