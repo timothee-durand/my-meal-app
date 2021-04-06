@@ -11,11 +11,19 @@
       </form>
     </modal>
 
-    <button type="button" @click="openModalAddLC" class="button-fixed"><i class="fas fa-plus-circle fa-2x text-yellow"></i></button>
-    <ListeCourse :liste-course="listeCourse" @updateOnList="updateListeCourse" :delete-button="false" v-if="isListeCourse"/>
+    <modal name="editer-liste-course" adaptive width="90%" classes="modal-my-meal" height="auto">
+      <h3>Changer la liste de course</h3>
+      <ListeCourse :liste-course="listToEdit" @updateOnList="saveChangesListeCourse" :delete-button="false"
+                   :edit-button="false" edit-mode disable-ombre/>
+    </modal>
+
+    <button type="button" @click="openModalAddLC" class="button-fixed"><i
+      class="fas fa-plus-circle fa-2x text-yellow"></i></button>
+    <ListeCourse :liste-course="listeCourse" @updateOnList="updateListeCourse" :delete-button="false"
+                 v-if="isListeCourse"/>
     <h3>Mes listes de courses</h3>
     <ListeCourse v-for="(listeCourse, i) in listeCourses" :key="'lc' + i" :liste-course="listeCourse"
-                 @updateOnList="updateListeCourse" @deleteLC="deleteListeCourse"/>
+                 @updateOnList="updateListeCourse" @deleteLC="deleteListeCourse" @editLC="editListeCourse"/>
   </div>
 </template>
 
@@ -44,7 +52,8 @@ export default {
         dateDebut: dayjs().format('YYYY-MM-DD'),
         dateFin: dayjs().add(6, 'days').format('YYYY-MM-DD')
       },
-      listeCourse: {}
+      listeCourse: {},
+      listToEdit: {}
     }
   },
   computed: {
@@ -107,6 +116,10 @@ export default {
     updateListeCourse (payload) {
       this.$store.dispatch('updateListeCourse', payload)
     },
+    saveChangesListeCourse (payload) {
+      this.$store.dispatch('updateListeCourse', payload)
+      this.$modal.hide('editer-liste-course')
+    },
     deleteListeCourse (payload) {
       this.$modal.show('dialog', {
         title: 'Suppression',
@@ -130,6 +143,10 @@ export default {
     },
     openModalAddLC () {
       this.$modal.show('generer-liste-course')
+    },
+    editListeCourse (payload) {
+      this.listToEdit = payload
+      this.$modal.show('editer-liste-course')
     }
   }
 }
