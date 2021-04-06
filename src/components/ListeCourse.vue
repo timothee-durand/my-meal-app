@@ -92,7 +92,7 @@ export default {
   margin: 0.4rem;
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: 10;
 }
 
 ul {
